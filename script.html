@@ -1,0 +1,58 @@
+<script>
+  document.getElementById('registerBtn').addEventListener('click', () => {
+    document.getElementById('registerModal').classList.add('open');
+  });
+
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('open'));
+    });
+  });
+
+  // Replace this with the actual form submit logic
+  async function handleRegister() {
+    const name = document.getElementById('fullName').value;
+    const aadhaarId = document.getElementById('aadhaarNumber').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const district = document.getElementById('district').value;
+    const state = document.getElementById('state').value;
+    const latitude = 28.6139;  // Sample location (New Delhi)
+    const longitude = 77.2090;
+
+    const body = {
+      name,
+      aadhaarId,
+      phone,
+      email,
+      district,
+      state,
+      location: {
+        coordinates: [longitude, latitude]
+      }
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registration successful!');
+        document.getElementById('registerModal').classList.remove('open');
+      } else {
+        alert('Registration failed: ' + data.message);
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  }
+
+  // You can hook this up to your Register button
+  document.querySelector('#registerModal .btn-primary').addEventListener('click', handleRegister);
+</script>

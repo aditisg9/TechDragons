@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilant Citizen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --secondary: #1B5E20;
+            --accent: #FF6F00;
+            --light: #E8F5E9;
+            --dark: #1A1A1A;
+            --danger: #D32F2F;
+            --success: #43A047;
+            --neutral: #424242;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #E65100;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            color: white;
+            z-index: 1;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-large {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .features-section {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            background-color: var(--light);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .how-it-works {
+            padding: 5rem 2rem;
+            background-color: var(--light);
+        }
+
+        .steps-container {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(50% - 2px);
+            width: 4px;
+            background-color: var(--primary);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .step-number {
+            background-color: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 2;
+            margin: 0 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: calc(50% - 5rem);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .report-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .report-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .report-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .report-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .demo-section {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .demo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .mockup {
+            width: 300px;
+            height: 600px;
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #333;
+        }
+
+        .mockup-header {
+            height: 50px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mockup-notch {
+            width: 50%;
+            height: 20px;
+            background-color: #333;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .mockup-screen {
+            height: calc(100% - 50px);
+            overflow: hidden;
+            background-color: #f5f5f5;
+            position: relative;
+        }
+
+        .screen-content {
+            padding: 1rem;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .app-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .app-screen {
+            margin-top: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            height: 440px;
+            overflow-y: auto;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            background-color: white;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-type {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .report-time {
+            font-size: 0.75rem;
+            color: #757575;
+        }
+
+        .report-content {
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .report-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .votes {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features-description {
+            max-width: 800px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .features-list {
+            list-style-type: none;
+            margin-top: 1.5rem;
+        }
+
+        .features-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .features-list li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--success);
+            position: absolute;
+            left: 0;
+        }
+
+        .stats-section {
+            padding: 5rem 2rem;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .stat-title {
+            font-size: 1.2rem;
+        }
+
+        .cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            max-width: 300px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+        }
+
+        .footer-links h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links ul {
+            list-style-type: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 99;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            background-color: #E65100;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .steps-container::before {
+                left: 30px;
+            }
+
+            .step {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
+            .step:nth-child(even) {
+                flex-direction: row;
+            }
+
+            .step-number {
+                margin-left: 0;
+                margin-right: 2rem;
+            }
+
+            .step-content {
+                width: calc(100% - 80px);
+            }
+
+            .demo-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            .nav-links {
+                margin-bottom: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Voter Status Animation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 125, 50, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+            }
+        }
+
+        .voter-status {
+            padding: 0.5rem 1rem;
+            background-color: var(--success);
+            color: white;
+            display: inline-block;
+            border-radius: 4px;
+            font-weight: 500;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Count Up Animation */
+        .count-up {
+            transition: color 0.3s ease;
+        }
+
+        .count-up:hover {
+            color: white;
+        }
+    </style>
+</head>
+<script>
+    document.getElementById('registerBtn').addEventListener('click', () => {
+      document.getElementById('registerModal').classList.add('open');
+    });
+  
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('open'));
+      });
+    });
+  
+    // Replace this with the actual form submit logic
+    async function handleRegister() {
+      const name = document.getElementById('fullName').value;
+      const aadhaarId = document.getElementById('aadhaarNumber').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const district = document.getElementById('district').value;
+      const state = document.getElementById('state').value;
+      const latitude = 28.6139;  // Sample location (New Delhi)
+      const longitude = 77.2090;
+  
+      const body = {
+        name,
+        aadhaarId,
+        phone,
+        email,
+        district,
+        state,
+        location: {
+          coordinates: [longitude, latitude]
+        }
+      };
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          alert('Registration successful!');
+          document.getElementById('registerModal').classList.remove('open');
+        } else {
+          alert('Registration failed: ' + data.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+  
+    // You can hook this up to your Register button
+    document.querySelector('#registerModal .btn-primary').addEventListener('click', handleRegister);
+  </script>
+  
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>Vigilant Citizen</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it Works</a>
+            <a href="#report">Report</a>
+            <a href="#demo">Demo</a>
+            <a href="#stats">Impact</a>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">Login</button>
+            <button class="btn btn-primary" id="registerBtn">Register</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Be the Voice of Change in Your Community</h1>
+            <p class="hero-subtitle">Report crimes, corruption, and environmental violations with evidence. Your voice matters in building a transparent and accountable society.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary btn-large" id="reportBtn">Report Now</button>
+                <button class="btn btn-outline btn-large">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-container">
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h3 class="feature-title">Aadhaar Verification</h3>
+                <p>Secure registration using Aadhaar ensures authenticity and prevents fake reports, maintaining the integrity of the platform.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-vote-yea"></i>
+                </div>
+                <h3 class="feature-title">One Aadhaar, One Vote</h3>
+                <p>Our unique voting system ensures fair prioritization of reports through democratic community action.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3 class="feature-title">Multimedia Evidence</h3>
+                <p>Upload photos, videos, or audio recordings as evidence to strengthen your reports and increase credibility.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3 class="feature-title">Local Notifications</h3>
+                <p>Get instant notifications about reports in your area, fostering community awareness and collective action.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h3 class="feature-title">Judicial Integration</h3>
+                <p>Reports with high community support are forwarded to judicial authorities for attention and action.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3 class="feature-title">Geo-tagged Reports</h3>
+                <p>Precise location tagging helps authorities respond effectively to the reported incidents.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-container">
+            <div class="step animate-on-scroll">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">Register with Aadhaar</h3>
+                    <p>Complete a secure one-time registration process using your Aadhaar number for identity verification.</p>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">Document the Issue</h3>
+                    <p>Capture evidence of the violation or issue using your phone's camera or audio recorder.</p>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">Submit Your Report</h3>
+                    <p>Create a detailed report with your evidence, location, and description of the incident.</p>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3 class="step-title">Community Voting</h3>
+                    <p>Local users vote on reports to prioritize serious issues and filter out less critical ones.</p>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3 class="step-title">Action and Resolution</h3>
+                    <h3 class="step-title">Action and Resolution</h3>
+                    <p>High-priority reports are forwarded to relevant authorities for investigation and appropriate action.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Section -->
+    <section class="report-section" id="report">
+        <h2 class="report-title">What Can You Report?</h2>
+        <p class="report-subtitle">Our platform enables citizens to report various issues affecting their communities. Your reports help create awareness and drive authorities to take action.</p>
+        <div class="report-categories">
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <h3>Deforestation</h3>
+            </div>
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3>Corruption</h3>
+            </div>
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <h3>Fake Fees</h3>
+            </div>
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <h3>Illegal Dumping</h3>
+            </div>
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h3>Water Pollution</h3>
+            </div>
+            <div class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-road"></i>
+                </div>
+                <h3>Road Issues</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section" id="demo">
+        <h2 class="section-title">See It In Action</h2>
+        <div class="demo-container">
+            <div class="mockup animate-on-scroll">
+                <div class="mockup-header">
+                    <div class="mockup-notch"></div>
+                </div>
+                <div class="mockup-screen">
+                    <div class="screen-content">
+                        <div class="app-header">
+                            <div class="app-logo">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Vigilant Citizen</span>
+                            </div>
+                        </div>
+                        <div class="app-screen">
+                            <div class="report-card">
+                                <div class="report-header">
+                                    <span class="report-type">Deforestation</span>
+                                    <span class="report-time">2 hours ago</span>
+                                </div>
+                                <p class="report-content">Illegal logging spotted near Riverside Park. Multiple trees being cut without permits.</p>
+                                <img src="/api/placeholder/400/200" alt="Deforestation" class="report-image">
+                                <div class="report-footer">
+                                    <div class="votes">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>132 votes</span>
+                                    </div>
+                                    <span>2.5 km away</span>
+                                </div>
+                            </div>
+                            <div class="report-card">
+                                <div class="report-header">
+                                    <span class="report-type">Corruption</span>
+                                    <span class="report-time">Yesterday</span>
+                                </div>
+                                <p class="report-content">City official demanding bribes for approving building permits. Audio evidence attached.</p>
+                                <div class="report-footer">
+                                    <div class="votes">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>87 votes</span>
+                                    </div>
+                                    <span>1.8 km away</span>
+                                </div>
+                            </div>
+                            <div class="report-card">
+                                <div class="report-header">
+                                    <span class="report-type">Fake Fees</span>
+                                    <span class="report-time">3 days ago</span>
+                                </div>
+                                <p class="report-content">Local office charging extra "processing fees" not listed in official government website.</p>
+                                <img src="/api/placeholder/400/200" alt="Fake fees receipt" class="report-image">
+                                <div class="report-footer">
+                                    <div class="votes">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>215 votes</span>
+                                    </div>
+                                    <span>0.7 km away</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="features-description animate-on-scroll">
+                <h3>Powerful Features at Your Fingertips</h3>
+                <p>The Vigilant Citizen app makes reporting issues simple and effective, while ensuring your privacy and security.</p>
+                <ul class="features-list">
+                    <li>Simple and intuitive user interface for quick reporting</li>
+                    <li>End-to-end encryption for all sensitive data</li>
+                    <li>Real-time status updates on reported issues</li>
+                    <li>Community discussion forums for each report</li>
+                    <li>Option to report anonymously (with verified Aadhaar)</li>
+                    <li>Integration with local government portals</li>
+                    <li>Whistleblower protection features</li>
+                </ul>
+                <div class="voter-status">
+                    Your Status: Verified Voter
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section" id="stats">
+        <h2 class="section-title" style="color: white;">Our Impact</h2>
+        <div class="stats-container">
+            <div class="stat-card animate-on-scroll">
+                <div class="stat-number count-up" data-target="5742">0</div>
+                <div class="stat-title">Issues Reported</div>
+            </div>
+            <div class="stat-card animate-on-scroll">
+                <div class="stat-number count-up" data-target="3218">0</div>
+                <div class="stat-title">Cases Resolved</div>
+            </div>
+            <div class="stat-card animate-on-scroll">
+                <div class="stat-number count-up" data-target="92">0</div>
+                <div class="stat-title">Districts Covered</div>
+            </div>
+            <div class="stat-card animate-on-scroll">
+                <div class="stat-number count-up" data-target="45321">0</div>
+                <div class="stat-title">Active Citizens</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Join the Movement for a Better Society</h2>
+        <p class="cta-subtitle">Download the app today and become a force for positive change in your community. Your voice matters!</p>
+        <div class="hero-buttons">
+            <button class="btn btn-primary btn-large">Download App</button>
+            <button class="btn btn-outline btn-large" id="reportBtnCTA">Report an Issue</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Vigilant Citizen</span>
+                </div>
+                <p class="footer-description">
+                    Empowering citizens to report issues, promote transparency, and build a better community through collective action.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
+                    <li><a href="#report">Report</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> info@vigilantcitizen.org</li>
+                    <li><i class="fas fa-phone"></i> +91 123 456 7890</li>
+                    <li><i class="fas fa-map-marker-alt"></i> New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vigilant Citizen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fabBtn">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Login</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="aadhaar" class="form-label">Aadhaar Number</label>
+                    <input type="text" id="aadhaar" class="form-control" placeholder="Enter your 12-digit Aadhaar number">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Don't have an account? <a href="#" id="showRegisterModal" style="color: var(--primary); font-weight: 500;">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Register</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="aadhaarReg" class="form-label">Aadhaar Number</label>
+                    <input type="text" id="aadhaarReg" class="form-control" placeholder="Enter your 12-digit Aadhaar number">
+                </div>
+                <div class="form-group">
+                    <label for="mobile" class="form-label">Mobile Number</label>
+                    <input type="text" id="mobile" class="form-control" placeholder="Enter your mobile number">
+                </div>
+                <div class="form-group">
+                    <label for="passwordReg" class="form-label">Password</label>
+                    <input type="password" id="passwordReg" class="form-control" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Register</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Already have an account? <a href="#" id="showLoginModal" style="color: var(--primary); font-weight: 500;">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Report an Issue</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="issueType" class="form-label">Issue Type</label>
+                    <select id="issueType" class="form-control">
+                        <option value="">Select issue type</option>
+                        <option value="deforestation">Deforestation</option>
+                        <option value="corruption">Corruption</option>
+                        <option value="fakeFees">Fake Fees</option>
+                        <option value="illegalDumping">Illegal Dumping</option>
+                        <option value="waterPollution">Water Pollution</option>
+                        <option value="roadIssues">Road Issues</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" id="location" class="form-control" placeholder="Enter location or use current location">
+                </div>
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-control" rows="4" placeholder="Describe the issue in detail"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Evidence</label>
+                    <div class="file-upload">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Drag & Drop files here</h4>
+                            <p>or click to browse (Photos, videos, audio)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Anonymous Report</label>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="anonymous">
+                        <label for="anonymous">Keep my identity anonymous to the public</label>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">
+                        Note: Your Aadhaar will still be verified by the system but your name won't be visible in public reports.
+                    </p>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Submit Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functionality
+        const modals = {
+            login: document.getElementById('loginModal'),
+            register: document.getElementById('registerModal'),
+            report: document.getElementById('reportModal')
+        };
+
+        const buttons = {
+            login: document.getElementById('loginBtn'),
+            register: document.getElementById('registerBtn'),
+            report: document.getElementById('reportBtn'),
+            reportCTA: document.getElementById('reportBtnCTA'),
+            fab: document.getElementById('fabBtn'),
+            showLogin: document.getElementById('showLoginModal'),
+            showRegister: document.getElementById('showRegisterModal'),
+            closeBtns: document.querySelectorAll('.close-modal')
+        };
+
+        // Open modal functions
+        function openModal(modalId) {
+            // Close all open modals first
+            Object.values(modals).forEach(modal => {
+                modal.classList.remove('open');
+            });
+
+            // Open the requested modal
+            modals[modalId].classList.add('open');
+        }
+
+        // Close modal function
+        function closeModals() {
+            Object.values(modals).forEach(modal => {
+                modal.classList.remove('open');
+            });
+        }
+
+        // Event listeners for buttons
+        buttons.login.addEventListener('click', () => openModal('login'));
+        buttons.register.addEventListener('click', () => openModal('register'));
+        buttons.report.addEventListener('click', () => openModal('report'));
+        buttons.reportCTA.addEventListener('click', () => openModal('report'));
+        buttons.fab.addEventListener('click', () => openModal('report'));
+        buttons.showLogin.addEventListener('click', () => openModal('login'));
+        buttons.showRegister.addEventListener('click', () => openModal('register'));
+
+        // Close buttons
+        buttons.closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeModals);
+        });
+
+        // Close when clicking outside the modal content
+        Object.values(modals).forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModals();
+                }
+            });
+        });
+
+        // Animate on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        // Number counter animation
+        function countUp() {
+            const counters = document.querySelectorAll('.count-up');
+            const speed = 200; // The lower the value, the faster the animation
+
+            counters.forEach(counter => {
+                const target = +counter.dataset.target;
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    const count = +counter.innerText;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Initialize animations
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', () => {
+            animateOnScroll();
+
+            // Trigger countUp when stats section is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        countUp();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
